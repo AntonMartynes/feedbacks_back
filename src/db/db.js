@@ -17,7 +17,7 @@ const client = new Client({
 client.connect();
 
 export const getFeedbacks = (request, response) => {
-  client.query('SELECT * FROM places ORDER BY id ASC', (error, results) => {
+  client.query('SELECT * FROM feedbacks ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error.message
     }
@@ -28,7 +28,7 @@ export const getFeedbacks = (request, response) => {
 export const createFeedback = (request, response) => {
   const { name, reasone, description, rating } = request.body
 
-  client.query('INSERT INTO places (name, reasone, description, rating) VALUES ($1, $2, $3, $4) RETURNING *', [name, reasone, description, rating], (error, results) => {
+  client.query('INSERT INTO feedbacks (name, reasone, description, rating) VALUES ($1, $2, $3, $4) RETURNING *', [name, reasone, description, rating], (error, results) => {
     if (error) {
       throw error
     }
@@ -39,7 +39,7 @@ export const createFeedback = (request, response) => {
 export const deleteFeedback = (request, response) => {
   const id = parseInt(request.params.id)
 
-  client.query('DELETE FROM places WHERE id = $1', [id], (error, results) => {
+  client.query('DELETE FROM feedbacks WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
